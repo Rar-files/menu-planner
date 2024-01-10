@@ -39,7 +39,7 @@ model Ingredient {
   meal   Meal   @relation(fields: [mealId], references: [id])
   mealId String @db.ObjectId
 
-  count Int
+  quantity Int
 }
 
 enum MealType {
