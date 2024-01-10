@@ -1,0 +1,49 @@
+version: '3.8'
+services:
+    app:
+        container_name: ${APP_NAME}-app
+        hostname: ${APP_NAME}-app
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: always
+        volumes:
+            - ./:/app/
+            - /app/node_modules
+            - /app/.next
+        ports:
+            - '${PORT}:3000'
+        environment:
+            DATABASE_URL: 'mongodb://${DB_USER}:${DB_PASSWORD}@${APP_NAME}-db/${APP_NAME}'
+        depends_on:
+            - db
+        networks:
+            - stack-network
+
+    db:
+        container_name: ${APP_NAME}-db
+        hostname: ${APP_NAME}-db
+        image: mongo:latest
+        environment:
+            MONGO_INITDB_DATABASE: ${APP_NAME}
+            APP_NAME: ${APP_NAME}
+            DB_USER: ${DB_USER}
+            DB_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - db-data:/data/db
+            - db-config:/data/configdb
+            - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+        networks:
+            - stack-network
+        ports:
+            - '27017:27017'
+
+networks:
+    stack-network:
+        name: ${APP_NAME}-network
+
+volumes:
+    db-data:
+        name: ${APP_NAME}-db-data
+    db-config:
+        name: ${APP_NAME}-db-config
