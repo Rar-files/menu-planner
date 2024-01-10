@@ -1,20 +1,37 @@
 import type { Config } from 'tailwindcss'
+import { addDynamicIconSelectors } from '@iconify/tailwind'
+import colors from 'tailwindcss/colors'
+
+const theme = {
+    primary: {
+        light: colors.indigo[500],
+        DEFAULT: colors.indigo[600],
+        dark: colors.indigo[700],
+    },
+    secondary: {
+        light: colors.amber[500],
+        DEFAULT: colors.amber[600],
+        dark: colors.amber[700],
+    },
+    text: {
+        DEFAULT: '#161616',
+        comments: '#545454',
+        contrastText: '#fff',
+    },
+    bg: colors.zinc[900],
+}
 
 const config: Config = {
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
-  theme: {
-    extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
+    content: [
+        './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    ],
+    theme: {
+        colors: theme,
     },
-  },
-  plugins: [],
+    plugins: [
+        // Iconify plugin
+        addDynamicIconSelectors(),
+    ],
 }
 export default config
