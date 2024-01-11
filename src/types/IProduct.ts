@@ -6,7 +6,7 @@ export interface IProduct {
     name: string
     unit: Unit
     pricePerUnit: number
-    ingredients: IIngredient[]
+    ingredients?: IIngredient[]
 }
 
 export type Unit = 'kg' | 'apiece' | 'ml'

@@ -7,7 +7,7 @@ export interface IMeal {
     description: string
     type: MealType
     date: string
-    ingredients: IIngredient[]
+    ingredients?: IIngredient[]
 }
 
 export type MealType = 'breakfast' | 'lunch' | 'dinner' | 'snack'
