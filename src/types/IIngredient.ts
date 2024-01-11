@@ -2,10 +2,10 @@ import { IMeal } from './IMeal'
 import { IProduct } from './IProduct'
 
 export interface IIngredient {
-    id: string
+    id: number
     product: IProduct
-    productId: string
+    productId: number
     meal: IMeal
-    mealId: string
+    mealId: number
     quantity: number
 }

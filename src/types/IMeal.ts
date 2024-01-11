@@ -1,7 +1,7 @@
 import { IIngredient } from './IIngredient'
 
 export interface IMeal {
-    id: string
+    id: number
     slug: string
     name: string
     description: string
