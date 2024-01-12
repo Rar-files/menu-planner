@@ -10,7 +10,7 @@ export const NotFound = (messagePrefix: string) =>
     )
 
 export const Ok = (data: any | null = null) => {
-    if (data === null) return NextResponse.json({ status: 200 })
+    if (data === null) return NextResponse.json({}, { status: 200 })
 
     return NextResponse.json(data, { status: 200 })
 }

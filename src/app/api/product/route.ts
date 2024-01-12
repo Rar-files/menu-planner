@@ -40,9 +40,9 @@ export const POST = async (request: Request) => {
         pricePerUnit: +body.pricePerUnit,
     }
 
-    if (!productToCreate.name) return BadRequest('Name')
-    if (!productToCreate.unit) return BadRequest('Unit')
-    if (!productToCreate.pricePerUnit) return BadRequest('PricePerUnit')
+    if (!productToCreate.name) return BadRequest('name')
+    if (!productToCreate.unit) return BadRequest('unit')
+    if (!productToCreate.pricePerUnit) return BadRequest('pricePerUnit')
 
     const product = await prisma.product.create({
         data: {
