@@ -19,10 +19,10 @@ export const GET = async (
 
     if (!productMentions) return NotFound(`Product with slug ${params.slug}`)
 
-    const countOfMentions = (ingredients: Ingredient[]): number => {
+    const TotalQuantityUsed = (ingredients: Ingredient[]): number => {
         const ingredient = ingredients.pop()
         if (!ingredient) return 0
-        return ingredient.quantity + countOfMentions(ingredients)
+        return ingredient.quantity + TotalQuantityUsed(ingredients)
     }
 
     const responseData = {
@@ -30,7 +30,7 @@ export const GET = async (
         slug: productMentions.slug,
         name: productMentions.name,
         pricePerUnit: productMentions.pricePerUnit,
-        countOfMentions: countOfMentions(productMentions.ingredients),
+        totalQuantityUsed: TotalQuantityUsed(productMentions.ingredients),
     }
 
     return Ok(responseData)
