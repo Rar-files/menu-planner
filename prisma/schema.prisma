@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Meal {
+  id   Int    @id @default(autoincrement())
+  slug String @unique
+
+  name        String
+  type        MealType
+  description String
+  date        DateTime
+
+  ingredients Ingredient[]
+}
+
+model Product {
+  id   Int    @id @default(autoincrement())
+  slug String @unique
+
+  name         String
+  unit         Unit
+  pricePerUnit Float
+
+  ingredients Ingredient[]
+}
+
+model Ingredient {
+  id Int @id @default(autoincrement())
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  meal   Meal @relation(fields: [mealId], references: [id])
+  mealId Int
+
+  quantity Int
+}
+
+enum MealType {
+  breakfast
+  lunch
+  dinner
+  snack
+}
+
+enum Unit {
+  kg
+  apiece
+  ml
+}
+
+model UserRole {
+  email String @unique
+  role  Role   @default(User)
+}
+
+enum Role {
+  User
+  Admin
+}

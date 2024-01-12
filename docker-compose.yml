@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+    app:
+        container_name: menu-planner-app
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                - ARG_DATABASE_URL=${DATABASE_URL}
+        restart: always
+        volumes:
+            - ./:/app/
+            - /app/node_modules
+            - /app/.next
+        ports:
+            - '${PORT}:3000'
