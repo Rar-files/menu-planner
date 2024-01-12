@@ -15,4 +15,10 @@ export interface IProductDTO {
     pricePerUnit: number
 }
 
+export interface IProductUpdateDTO {
+    name?: string
+    unit?: Unit
+    pricePerUnit?: number
+}
+
 export type Unit = 'kg' | 'apiece' | 'ml'

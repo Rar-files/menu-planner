@@ -1,29 +1,18 @@
 import { prisma } from '@/services/prisma'
 import { IProductDTO } from '@/types/IProduct'
-import { NextRequest, NextResponse } from 'next/server'
+import { BadRequest, Created, NotFound, Ok } from '../predefined-responses'
 
 export const GET = async () => {
     const products = await prisma.product.findMany()
 
-    if (!products) {
-        return NextResponse.json(
-            { message: 'Products table not found in database' },
-            { status: 503 }
-        )
-    }
+    if (!products) return NotFound('Products table')
 
-    return NextResponse.json(products, { status: 200 })
+    return Ok(products)
 }
 
-export const POST = async (request: NextRequest) => {
-    const BadRequest = (paramName: string) =>
-        NextResponse.json(
-            { message: `${paramName} is required` },
-            { status: 400 }
-        )
-
+export const POST = async (request: Request) => {
     if (request.headers.get('content-type') !== 'application/json')
-        return BadRequest('Body')
+        return BadRequest('Body of application/json type')
 
     const body = await request.json()
     const productToCreate: IProductDTO = {
@@ -45,5 +34,5 @@ export const POST = async (request: NextRequest) => {
         },
     })
 
-    return NextResponse.json(product, { status: 201 })
+    return Created(product)
 }
