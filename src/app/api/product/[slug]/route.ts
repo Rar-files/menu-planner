@@ -46,3 +46,23 @@ export const PUT = async (
 
     return Ok(updatedProduct)
 }
+
+export const DELETE = async (
+    request: Request,
+    { params }: { params: { slug: string } }
+) => {
+    let isRemoved = true
+    await prisma.product
+        .delete({
+            where: {
+                slug: params.slug,
+            },
+        })
+        .catch(() => {
+            isRemoved = false
+        })
+
+    if (!isRemoved) return NotFound(`Product with slug ${params.slug}`)
+
+    return Ok()
+}
