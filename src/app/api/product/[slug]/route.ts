@@ -1,6 +1,15 @@
 import { prisma } from '@/services/prisma'
-import { BadRequest, NotFound, Ok } from '../../predefined-responses'
+import {
+    BadRequest,
+    Forbidden,
+    NotFound,
+    Ok,
+    Unauthorized,
+} from '../../predefined-responses'
 import { IProductUpdateDTO } from '@/types/IProduct'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/services/auth'
+import { GetUserRole } from '../../../../../prisma/GetUserRole'
 
 export const GET = async (
     request: Request,
@@ -23,6 +32,16 @@ export const PUT = async (
     request: Request,
     { params }: { params: { slug: string } }
 ) => {
+    const session = await getServerSession(authOptions)
+
+    if (!session) return Unauthorized()
+    if (!session.user) return Unauthorized()
+    if (!session.user.email) return Unauthorized()
+
+    const role = await GetUserRole(session.user.email)
+
+    if (role != 'Admin') return Forbidden()
+
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')
 
@@ -51,6 +70,16 @@ export const DELETE = async (
     request: Request,
     { params }: { params: { slug: string } }
 ) => {
+    const session = await getServerSession(authOptions)
+
+    if (!session) return Unauthorized()
+    if (!session.user) return Unauthorized()
+    if (!session.user.email) return Unauthorized()
+
+    const role = await GetUserRole(session.user.email)
+
+    if (role != 'Admin') return Forbidden()
+
     let isRemoved = true
     await prisma.product
         .delete({

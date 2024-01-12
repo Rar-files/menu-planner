@@ -1,6 +1,16 @@
 import { prisma } from '@/services/prisma'
 import { IProductDTO } from '@/types/IProduct'
-import { BadRequest, Created, NotFound, Ok } from '../predefined-responses'
+import {
+    BadRequest,
+    Created,
+    Forbidden,
+    NotFound,
+    Ok,
+    Unauthorized,
+} from '../predefined-responses'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/services/auth'
+import { GetUserRole } from '../../../../prisma/GetUserRole'
 
 export const GET = async () => {
     const products = await prisma.product.findMany()
@@ -11,6 +21,16 @@ export const GET = async () => {
 }
 
 export const POST = async (request: Request) => {
+    const session = await getServerSession(authOptions)
+
+    if (!session) return Unauthorized()
+    if (!session.user) return Unauthorized()
+    if (!session.user.email) return Unauthorized()
+
+    const role = await GetUserRole(session.user.email)
+
+    if (role != 'Admin') return Forbidden()
+
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')
 
