@@ -8,7 +8,6 @@ import {
     Ok,
     Unauthorized,
 } from '../predefined-responses'
-import { GetUserRole } from '../../../../prisma/GetUserRole'
 import { IUserRole } from '@/types/IUserRole'
 import { prisma } from '@/services/prisma'
 
@@ -19,7 +18,7 @@ export const POST = async (request: Request) => {
     if (!session.user) return Unauthorized()
     if (!session.user.email) return Unauthorized()
 
-    const role = await GetUserRole(session.user.email)
+    const role = await prisma.userRole.getRole(session.user.email)
 
     if (role != 'Admin') return Forbidden()
 
@@ -46,7 +45,7 @@ export const PUT = async (request: Request) => {
     if (!session.user) return Unauthorized()
     if (!session.user.email) return Unauthorized()
 
-    const role = await GetUserRole(session.user.email)
+    const role = await prisma.userRole.getRole(session.user.email)
 
     if (role != 'Admin') return Forbidden()
 
@@ -77,7 +76,7 @@ export const DELETE = async (request: Request) => {
     if (!session.user) return Unauthorized()
     if (!session.user.email) return Unauthorized()
 
-    const role = await GetUserRole(session.user.email)
+    const role = await prisma.userRole.getRole(session.user.email)
 
     if (role != 'Admin') return Forbidden()
 

@@ -9,7 +9,6 @@ import {
 import { IProductUpdateDTO } from '@/types/IProduct'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/services/auth'
-import { GetUserRole } from '../../../../../prisma/GetUserRole'
 
 export const GET = async (
     request: Request,
@@ -38,7 +37,7 @@ export const PUT = async (
     if (!session.user) return Unauthorized()
     if (!session.user.email) return Unauthorized()
 
-    const role = await GetUserRole(session.user.email)
+    const role = await prisma.userRole.getRole(session.user.email)
 
     if (role != 'Admin') return Forbidden()
 
@@ -76,7 +75,7 @@ export const DELETE = async (
     if (!session.user) return Unauthorized()
     if (!session.user.email) return Unauthorized()
 
-    const role = await GetUserRole(session.user.email)
+    const role = await prisma.userRole.getRole(session.user.email)
 
     if (role != 'Admin') return Forbidden()
 
