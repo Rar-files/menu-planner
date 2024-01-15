@@ -34,10 +34,10 @@ model Product {
 model Ingredient {
   id Int @id @default(autoincrement())
 
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   productId Int
 
-  meal   Meal @relation(fields: [mealId], references: [id])
+  meal   Meal @relation(fields: [mealId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   mealId Int
 
   quantity Int
