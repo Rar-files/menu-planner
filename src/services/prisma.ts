@@ -1,8 +1,6 @@
 import { IUserRole } from '@/types/IUserRole'
 import { PrismaClient, Prisma } from '@prisma/client'
 
-const prePrisma = new PrismaClient()
-
 const getRoleExtension = Prisma.defineExtension({
     name: 'getRole',
     model: {
@@ -28,4 +26,14 @@ const getRoleExtension = Prisma.defineExtension({
     },
 })
 
-export const prisma = prePrisma.$extends(getRoleExtension)
+const prismaClientSingleton = () => {
+    return new PrismaClient().$extends(getRoleExtension)
+}
+
+declare global {
+    var prisma: undefined | ReturnType<typeof prismaClientSingleton>
+}
+
+export const prisma = globalThis.prisma ?? prismaClientSingleton()
+
+if (process.env.NODE_ENV !== 'production') globalThis.prisma = prisma

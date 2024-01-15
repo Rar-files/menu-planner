@@ -6,7 +6,7 @@ export const GET = async (
     request: Request,
     { params }: { params: { slug: string } }
 ) => {
-    if (!params.slug) return NotFound('Slug')
+    if (!params.slug) return NotFound('slug')
 
     const productMentions = await prisma.product.findUnique({
         where: {
