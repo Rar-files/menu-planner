@@ -1,12 +1,15 @@
+'use client'
+
 import { useState } from 'react'
 
 type DirProps = {
-    title: string
+    path: string
     children?: React.ReactNode
 }
 
-const MenuDir = ({ title, children }: DirProps) => {
+const ExplorerDir = ({ path, children }: DirProps) => {
     const [opened, setOpened] = useState(false)
+    const title = path.split('/').pop()!
 
     return (
         <div className="flex flex-col">
@@ -21,7 +24,7 @@ const MenuDir = ({ title, children }: DirProps) => {
                         opened ? 'rotate-90' : null
                     }`}
                 />
-                {title}
+                {'/' + title}
             </div>
             {opened ? (
                 <div className={`ml-3 pl-3 border-l-2`}>{children}</div>
@@ -30,4 +33,4 @@ const MenuDir = ({ title, children }: DirProps) => {
     )
 }
 
-export default MenuDir
+export default ExplorerDir

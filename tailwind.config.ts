@@ -19,6 +19,12 @@ const theme = {
         contrastText: '#fff',
     },
     bg: colors.zinc[900],
+    docsMethod: {
+        get: colors.green[500],
+        post: colors.yellow[500],
+        put: colors.blue[500],
+        delete: colors.red[500],
+    },
 }
 
 const config: Config = {

@@ -1,16 +1,24 @@
-'use client'
+import Explorer from '@/components/api-docs/api-explorer'
+import { GetJSONTreeOfFiles } from './get-json-tree-of-files'
+import { NextPage } from 'next'
 
-import MenuDir from '@/components/api-docs/explorer/menu-dir'
+const getAPIEndpoints = async () => {
+    const apiFolderPath = 'api'
+    return await GetJSONTreeOfFiles(apiFolderPath).catch(() => null)
+}
 
-export default function Home() {
+const Docs: NextPage = async () => {
+    const fileTree = await getAPIEndpoints()
+
+    if (!fileTree) return <>Error</>
+
     return (
-        <MenuDir title="1">
-            <MenuDir title="2">
-                <MenuDir title="3"></MenuDir>
-            </MenuDir>
-            <MenuDir title="2">
-                <MenuDir title="3"></MenuDir>
-            </MenuDir>
-        </MenuDir>
+        <div>
+            {' '}
+            <div>{`/api`}</div>
+            <Explorer fileTree={fileTree} />{' '}
+        </div>
     )
 }
+
+export default Docs
