@@ -9,7 +9,7 @@ export interface IProduct {
     ingredients?: IIngredient[]
 }
 
-export interface IProductDTO {
+export interface IProductCreateDTO {
     name: string
     unit: Unit
     pricePerUnit: number

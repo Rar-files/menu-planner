@@ -1,9 +1,10 @@
 import { prisma } from '@/services/prisma'
 import { BadRequest, NotFound, Ok } from '../../predefined-responses'
-import { IProductUpdateDTO } from '@/types/IProduct'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/services/auth'
 import { CheckIsAdmin } from '../../auth/check-auth-status'
+import { IMealUpdateDTO } from '@/types/IMeal'
+import { GetMealSlug } from '../get-meal-slug'
 
 export const GET = async (
     request: Request,
@@ -11,15 +12,22 @@ export const GET = async (
 ) => {
     if (!params.slug) return NotFound('slug')
 
-    const product = await prisma.product.findUnique({
+    const meal = await prisma.meal.findUnique({
         where: {
             slug: params.slug,
         },
+        include: {
+            ingredients: {
+                include: {
+                    product: true,
+                },
+            },
+        },
     })
 
-    if (!product) return NotFound(`Product with slug ${params.slug}`)
+    if (!meal) return NotFound(`Meal with slug ${params.slug}`)
 
-    return Ok(product)
+    return Ok(meal)
 }
 
 export const PUT = async (
@@ -33,25 +41,43 @@ export const PUT = async (
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')
 
-    const body = await request.json()
-
-    const pricePerUnitToUpdate = body.pricePerUnit ? +body.pricePerUnit : null
-
-    const productToUpdate: IProductUpdateDTO = {
-        ...body,
-        pricePerUnit: pricePerUnitToUpdate,
-    }
-
-    const updatedProduct = await prisma.product.update({
+    let body: IMealUpdateDTO = await request.json()
+    const mealToUpdate = await prisma.meal.findUnique({
         where: {
             slug: params.slug,
         },
+    })
+
+    if (!mealToUpdate) return NotFound(`Meal with slug ${params.slug}`)
+
+    if (body.name || body.date || body.type) {
+        body = {
+            ...body,
+            slug: GetMealSlug({
+                ...mealToUpdate,
+                ...body,
+            }),
+        }
+    }
+
+    const updatedMeal = await prisma.meal.update({
+        where: {
+            slug: params.slug,
+        },
+        include: {
+            ingredients: {
+                include: {
+                    product: true,
+                },
+            },
+        },
         data: {
-            ...productToUpdate,
+            ...mealToUpdate,
+            ...body,
         },
     })
 
-    return Ok(updatedProduct)
+    return Ok(updatedMeal)
 }
 
 export const DELETE = async (
@@ -63,7 +89,7 @@ export const DELETE = async (
     if (isAdminStatus !== true) return isAdminStatus
 
     let isRemoved = true
-    await prisma.product
+    await prisma.meal
         .delete({
             where: {
                 slug: params.slug,
