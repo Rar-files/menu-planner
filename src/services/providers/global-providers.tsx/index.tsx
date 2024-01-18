@@ -7,8 +7,8 @@ type props = {
     children: React.ReactNode
 }
 
-const Providers: FC<props> = ({ children }) => {
+const GlobalProviders: FC<props> = ({ children }) => {
     return <SessionProvider>{children}</SessionProvider>
 }
 
-export default Providers
+export default GlobalProviders
