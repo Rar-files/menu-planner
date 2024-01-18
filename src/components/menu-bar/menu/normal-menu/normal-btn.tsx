@@ -6,7 +6,7 @@ const NormalMenu: FC<IMenuEndpoint> = ({ name, href }) => {
     return (
         <Link href={href}>
             <button
-                className={`h-4 w-10 rounded-sm bg-primary-dark text-text-contrastText`}
+                className={`h-auto w-auto rounded-lg bg-primary hover:bg-primary-dark text-text-contrastText m-2 px-2 py-1`}
             >
                 {name}
             </button>

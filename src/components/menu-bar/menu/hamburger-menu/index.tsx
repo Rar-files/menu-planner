@@ -34,7 +34,7 @@ const HamburgerMenu = () => {
             {open ? (
                 <div
                     onClick={() => setOpen(false)}
-                    className={`flex flex-col justify-between items-center fixed w-full h-auto top-12 right-0 left-0 z-20`}
+                    className={`flex flex-col justify-between items-center fixed w-full h-auto top-12 right-0 left-0 z-20 mb-2`}
                 >
                     {menuEndpoints.map((endpoint, index) => (
                         <HamburgerBtn
