@@ -6,7 +6,7 @@ const HamburgerBtn: FC<IMenuEndpoint> = ({ name, href }) => {
     return (
         <Link href={href}>
             <button
-                className={`w-screen h-auto p-2 bg-primary-dark hover:bg-primary text-text-contrastText`}
+                className={`w-screen h-auto p-2 bg-primary-dark hover:bg-primary text-text-contrastText border-b-2 border-primary`}
             >
                 {name}
             </button>

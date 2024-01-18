@@ -1,5 +1,5 @@
-import LoginBtn from '../../login-btn'
 import { menuEndpoints } from '../menu-endpoints'
+import User from '../user'
 import NormalBtn from './normal-btn'
 
 const NormalMenu = () => {
@@ -12,6 +12,8 @@ const NormalMenu = () => {
                     href={endpoint.href}
                 />
             ))}
+            <div className={`h-10 m-1 p-px bg-primary`}></div>
+            <User />
         </div>
     )
 }

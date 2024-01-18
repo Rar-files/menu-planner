@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { menuEndpoints } from '../menu-endpoints'
 import HamburgerBtn from './hamburger-btn'
+import User from '../user'
 
 const HamburgerMenu = () => {
     const [open, setOpen] = useState(false)
@@ -34,7 +35,7 @@ const HamburgerMenu = () => {
             {open ? (
                 <div
                     onClick={() => setOpen(false)}
-                    className={`flex flex-col justify-between items-center fixed w-full h-auto top-12 right-0 left-0 z-20 mb-2`}
+                    className={`flex flex-col justify-between items-center fixed w-full h-auto top-12 right-0 left-0 z-20 mb-2 bg-primary-dark`}
                 >
                     {menuEndpoints.map((endpoint, index) => (
                         <HamburgerBtn
@@ -43,6 +44,9 @@ const HamburgerMenu = () => {
                             href={endpoint.href}
                         />
                     ))}
+                    <div className={`h-12 flex items-center`}>
+                        <User />
+                    </div>
                 </div>
             ) : null}
         </div>
