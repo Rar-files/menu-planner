@@ -5,7 +5,7 @@ type Props = {
 }
 
 const ToolBar: FC<Props> = ({ children }) => {
-    return <div className={`flex flex-row justify-end m-1`}>{children}</div>
+    return <div className={`flex flex-row justify-end mt-2`}>{children}</div>
 }
 
 export default ToolBar

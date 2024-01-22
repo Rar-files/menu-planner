@@ -28,6 +28,9 @@ const theme = {
         put: colors.blue[500],
         delete: colors.red[500],
     },
+    success: colors.green[600],
+    warn: colors.amber[600],
+    error: colors.red[600],
 }
 
 const config: Config = {

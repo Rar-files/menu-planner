@@ -1,6 +1,6 @@
 'use client'
 
-import Loader from '@/ui/Loader'
+import Loader from '@/ui/loader'
 import Button from '@/ui/button'
 import ContentBox from '@/ui/content-box'
 import DynamicArea from '@/ui/dynamic-area'
