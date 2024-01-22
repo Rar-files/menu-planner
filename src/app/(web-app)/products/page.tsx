@@ -1,6 +1,6 @@
 'use client'
 
-import Loader from '@/components/Loader'
+import Loader from '@/ui/Loader'
 import Button from '@/ui/button'
 import ContentBox from '@/ui/content-box'
 import DynamicArea from '@/ui/dynamic-area'
@@ -19,7 +19,7 @@ const Products = () => {
             </ToolBar>
             <ContentBox>
                 {isLoading ? (
-                    <Loader />
+                    <Loader message="Loading list of products..." />
                 ) : (
                     products?.data.map((product: any) => {})
                 )}
