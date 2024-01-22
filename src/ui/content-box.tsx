@@ -5,7 +5,7 @@ type Props = {
 }
 
 const ContentBox: FC<Props> = ({ children }) => {
-    return <div className={`grow my-2 bg-bg-box rounded-lg`}>{children}</div>
+    return <div className={`grow my-3 bg-bg-box rounded-lg`}>{children}</div>
 }
 
 export default ContentBox
