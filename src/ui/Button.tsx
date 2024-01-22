@@ -45,7 +45,7 @@ const StyledButton: FC<StyledButtonProps> = ({
                 secondary
                     ? `${
                           outline
-                              ? ' border-secondary-dark border-2 hover:bg-secondary'
+                              ? ' border-secondary border-2 hover:bg-secondary'
                               : 'bg-secondary hover:bg-secondary-dark'
                       } `
                     : `${
@@ -55,7 +55,7 @@ const StyledButton: FC<StyledButtonProps> = ({
                       }`
             } text-text-contrastText`}
         >
-            <div className={`flex justify-center items-center text-center`}>
+            <div className={`flex justify-center items-center`}>
                 {children}
                 {icon && /icon-\[[^\]]*\]/.test(icon) ? (
                     <span className={`ml-1 ${icon}`}>{icon}</span>
