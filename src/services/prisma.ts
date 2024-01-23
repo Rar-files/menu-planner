@@ -1,5 +1,4 @@
 import { IIdRole } from '@/types/IIdRole'
-import { IUserRole } from '@/types/IUserRole'
 import { Role } from '@prisma/client'
 import { PrismaClient, Prisma } from '@prisma/client'
 
