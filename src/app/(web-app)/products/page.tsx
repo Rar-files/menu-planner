@@ -8,9 +8,19 @@ import ToolBar from '@/ui/tool-bar'
 import useSWR from 'swr'
 import { IProduct } from '@/types/IProduct'
 import Link from 'next/link'
+import DataTable, { IColumn } from '@/ui/data-table'
+import Header from '@/ui/data-table/header'
+import Cell from '@/ui/data-table/cell'
+import DataRow from '@/ui/data-table/data-row'
 
 const Products = () => {
     const { data: products, isLoading } = useSWR('/api/product')
+
+    const tableColumns: IColumn[] = [
+        { name: 'name', label: 'Name', width: 'w-12' },
+        { name: 'unit', label: 'Unit' },
+        { name: 'pricePerUnit', label: 'Price per unit' },
+    ]
 
     return (
         <DynamicArea>
@@ -23,15 +33,11 @@ const Products = () => {
                 {isLoading ? (
                     <Loader message="Loading list of products..." />
                 ) : (
-                    <div className={`flex flex-col`}>
-                        {products?.map((product: IProduct, index: number) => (
-                            <Link href={`products/${product.slug}`} key={index}>
-                                <div className={`m-2 bg-secondary-dark`}>
-                                    {product.name}
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
+                    <DataTable
+                        items={products}
+                        columns={tableColumns}
+                        url="/products"
+                    />
                 )}
             </ContentBox>
         </DynamicArea>
