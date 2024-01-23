@@ -1,9 +1,9 @@
 import { authOptions } from '@/services/auth'
 import { getServerSession } from 'next-auth'
 import { BadRequest, Created, NotFound, Ok } from '../predefined-responses'
-import { IUserRole } from '@/types/IUserRole'
 import { prisma } from '@/services/prisma'
 import { CheckIsAdmin } from '../auth/check-auth-status'
+import { IIdRole } from '@/types/IIdRole'
 
 export const POST = async (request: Request) => {
     const session = await getServerSession(authOptions)
@@ -13,17 +13,17 @@ export const POST = async (request: Request) => {
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')
 
-    const body: IUserRole = await request.json()
+    const body: IIdRole = await request.json()
 
-    if (!body.email) return BadRequest('email')
+    if (!body.id) return BadRequest('email')
 
-    const userRole = await prisma.userRole.create({
+    const idRole = await prisma.idRole.create({
         data: {
             ...body,
         },
     })
 
-    return Created(userRole)
+    return Created(idRole)
 }
 
 export const PUT = async (request: Request) => {
@@ -34,21 +34,23 @@ export const PUT = async (request: Request) => {
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')
 
-    const body: IUserRole = await request.json()
+    const body: IIdRole = await request.json()
 
-    if (!body.email) return BadRequest('email')
+    if (!body.id) return BadRequest('email')
     if (!body.role) return BadRequest('role')
 
-    const userRole = await prisma.userRole.update({
+    const idRole = await prisma.idRole.update({
         where: {
-            email: body.email,
+            id: body.id,
         },
         data: {
             ...body,
         },
     })
 
-    return Ok(userRole)
+    if (!idRole) return NotFound(`idRole with id ${body.id}`)
+
+    return Ok(idRole)
 }
 
 export const DELETE = async (request: Request) => {
@@ -59,22 +61,22 @@ export const DELETE = async (request: Request) => {
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')
 
-    const body: IUserRole = await request.json()
+    const body: IIdRole = await request.json()
 
-    if (!body.email) return BadRequest('email')
+    if (!body.id) return BadRequest('email')
 
     let isRemoved = true
-    await prisma.userRole
+    await prisma.idRole
         .delete({
             where: {
-                email: body.email,
+                id: body.id,
             },
         })
         .catch(() => {
             isRemoved = false
         })
 
-    if (!isRemoved) return NotFound(`userRole with email ${body.email}`)
+    if (!isRemoved) return NotFound(`idRole with id ${body.id}`)
 
     return Ok()
 }

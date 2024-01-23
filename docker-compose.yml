@@ -6,7 +6,8 @@ services:
             context: .
             dockerfile: Dockerfile
             args:
-                - ARG_DATABASE_URL=${DATABASE_URL}
+                - ARG_POSTGRES_URL=${POSTGRES_URL}
+                - ARG_POSTGRES_URL_NON_POOLING=${POSTGRES_URL_NON_POOLING}
         restart: always
         volumes:
             - ./:/app/

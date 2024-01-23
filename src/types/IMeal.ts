@@ -1,3 +1,4 @@
+import { MealType } from '@prisma/client'
 import { IIngredient, IIngredientCreateDTO } from './IIngredient'
 
 export interface IMeal {
@@ -25,5 +26,3 @@ export interface IMealUpdateDTO {
     date?: string
     slug?: string
 }
-
-export type MealType = 'breakfast' | 'lunch' | 'dinner' | 'snack'

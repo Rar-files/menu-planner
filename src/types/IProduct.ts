@@ -1,3 +1,4 @@
+import { Unit } from '@prisma/client'
 import { IIngredient } from './IIngredient'
 
 export interface IProduct {
@@ -20,5 +21,3 @@ export interface IProductUpdateDTO {
     unit?: Unit
     pricePerUnit?: number
 }
-
-export type Unit = 'kg' | 'apiece' | 'ml'

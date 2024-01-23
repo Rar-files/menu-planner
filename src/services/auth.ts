@@ -1,5 +1,6 @@
 import { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
+import { prisma } from '@/services/prisma'
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -15,4 +16,24 @@ export const authOptions: NextAuthOptions = {
             },
         }),
     ],
+    session: { strategy: 'jwt' },
+    callbacks: {
+        async jwt({ token, user }) {
+            /* Step 1: update the token based on the user object */
+            if (user) {
+                const role = await prisma.idRole.getRole(user.id)
+                token = { ...user, role: role }
+            }
+
+            return token
+        },
+
+        session({ session, token }) {
+            /* Step 2: update the session.user based on the token object */
+            if (token && session.user) {
+                session.user = { id: token.email, ...token }
+            }
+            return session
+        },
+    },
 }

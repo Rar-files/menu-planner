@@ -18,19 +18,26 @@ const theme = {
         comments: '#545454',
         contrastText: '#fff',
     },
-    bg: colors.zinc[900],
+    bg: {
+        DEFAULT: colors.zinc[900],
+        box: colors.zinc[800],
+    },
     docsMethod: {
         get: colors.green[500],
         post: colors.yellow[500],
         put: colors.blue[500],
         delete: colors.red[500],
     },
+    success: colors.green[600],
+    warn: colors.amber[600],
+    error: colors.red[600],
 }
 
 const config: Config = {
     content: [
         './src/components/**/*.{js,ts,jsx,tsx,mdx}',
         './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/ui/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
         colors: theme,

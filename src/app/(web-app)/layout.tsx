@@ -13,7 +13,11 @@ const WebAppRootLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <WebAppProviders>
             <MenuBar />
-            {children}
+            <main
+                className={`flex justify-center w-screen min-h-[calc(100vh-3rem)]`}
+            >
+                {children}
+            </main>
         </WebAppProviders>
     )
 }
