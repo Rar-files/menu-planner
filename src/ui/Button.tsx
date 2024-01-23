@@ -6,6 +6,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     secondary?: boolean
     bold?: boolean
     outline?: boolean
+    /** Icon name in Iconify tailwind format. Example: "icon-[mdi--silverware]"*/
     icon?: string
 }
 

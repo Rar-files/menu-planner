@@ -37,8 +37,8 @@ const User = () => {
     }
 
     return (
-        <Button outline onClick={() => signIn()}>
-            Admin access
+        <Button outline icon="icon-[mdi--login]" onClick={() => signIn()}>
+            Login
         </Button>
     )
 }

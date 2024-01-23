@@ -1,6 +1,6 @@
 import { Role } from '@prisma/client'
 
-export interface IUserRole {
-    email: string
+export interface IIdRole {
+    id: string
     role?: Role
 }

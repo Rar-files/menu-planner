@@ -19,7 +19,6 @@ const ProductCreate = () => {
 
     const onSubmit = async (data: IProductCreateDTO) => {
         if (!fetcher) {
-            console.log('Error data post')
             return
         }
         const created = (await fetcher(url, {
