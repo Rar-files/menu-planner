@@ -1,14 +1,14 @@
 // This is a backdoor endpoint, for put initial admin role to first user in database.
 // After this operation recommand to remowe 'USERROLE_PUT_SECRET' env variable to disable this fuction
 
-import { BadRequest, Forbidden, Ok } from '../../predefined-responses'
-import { IUserRole } from '@/types/IUserRole'
+import { BadRequest, Forbidden, NotFound, Ok } from '../../predefined-responses'
 import { prisma } from '@/services/prisma'
+import { IIdRole } from '@/types/IIdRole'
 import { NextResponse } from 'next/server'
 
 type SecretUserRoleRequest = {
     secret: string
-    userRole: IUserRole
+    idRole: IIdRole
 }
 
 export const PUT = async (request: Request) => {
@@ -24,18 +24,20 @@ export const PUT = async (request: Request) => {
 
     if (body.secret != putSecret) return Forbidden()
 
-    if (!body.userRole) return BadRequest('userRole')
-    if (!body.userRole.email) return BadRequest('email')
-    if (!body.userRole.role) return BadRequest('role')
+    if (!body.idRole) return BadRequest('userRole')
+    if (!body.idRole.id) return BadRequest('email')
+    if (!body.idRole.role) return BadRequest('role')
 
-    const userRole = await prisma.userRole.update({
+    const idRole = await prisma.idRole.update({
         where: {
-            email: body.userRole.email,
+            id: body.idRole.id,
         },
         data: {
-            ...body.userRole,
+            ...body.idRole,
         },
     })
 
-    return Ok(userRole)
+    if (!idRole) return NotFound(`idRole with id ${body.idRole.id}`)
+
+    return Ok(idRole)
 }

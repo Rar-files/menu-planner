@@ -1,5 +1,5 @@
-const meal = () => {
+const Meal = () => {
     return <h1>Hello meal!</h1>
 }
 
-export default meal
+export default Meal

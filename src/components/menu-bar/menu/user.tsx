@@ -1,3 +1,4 @@
+import Button from '@/ui/elements/button'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Image from 'next/image'
 
@@ -36,12 +37,9 @@ const User = () => {
     }
 
     return (
-        <div
-            onClick={() => signIn()}
-            className={`flex justify-center items-center h-auto w-auto rounded-lg cursor-pointer border-primary border-2 hover:bg-primary text-text-contrastText m-2 px-1`}
-        >
-            <div className={`m-0.5`}>Admin access</div>
-        </div>
+        <Button outline icon="icon-[mdi--login]" onClick={() => signIn()}>
+            Login
+        </Button>
     )
 }
 

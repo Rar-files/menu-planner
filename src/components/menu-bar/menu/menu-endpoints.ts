@@ -13,4 +13,8 @@ export const menuEndpoints: IMenuEndpoint[] = [
         name: 'Meals',
         href: '/meals',
     },
+    {
+        name: 'Products',
+        href: '/products',
+    },
 ]

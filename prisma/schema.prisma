@@ -56,9 +56,9 @@ enum Unit {
   ml
 }
 
-model UserRole {
-  email String @unique
-  role  Role   @default(User)
+model IdRole {
+  id   String @unique
+  role Role   @default(User)
 }
 
 enum Role {
