@@ -8,11 +8,7 @@ type Props = {
 
 const Cell: FC<Props> = ({ children, width }) => {
     return (
-        <div
-            className={`${
-                width ? `${width} flex-auto` : `flex-1`
-            } border-docsMethod-delete border-2`}
-        >
+        <div className={`${width ? `${width} flex-auto` : `flex-1`}`}>
             {children}
         </div>
     )

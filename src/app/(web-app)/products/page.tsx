@@ -6,20 +6,20 @@ import ContentBox from '@/ui/content-box'
 import DynamicArea from '@/ui/dynamic-area'
 import ToolBar from '@/ui/tool-bar'
 import useSWR from 'swr'
-import { IProduct } from '@/types/IProduct'
-import Link from 'next/link'
 import DataTable, { IColumn } from '@/ui/data-table'
-import Header from '@/ui/data-table/header'
-import Cell from '@/ui/data-table/cell'
-import DataRow from '@/ui/data-table/data-row'
 
 const Products = () => {
     const { data: products, isLoading } = useSWR('/api/product')
 
     const tableColumns: IColumn[] = [
-        { name: 'name', label: 'Name', width: 'w-12' },
-        { name: 'unit', label: 'Unit' },
-        { name: 'pricePerUnit', label: 'Price per unit' },
+        { name: 'name', label: 'Name', width: 'w-1/2' },
+        { name: 'unit', label: 'Unit', width: 'w-1/4' },
+        {
+            name: 'pricePerUnit',
+            label: 'Price per unit',
+            width: 'w-1/4',
+            surfix: 'pln',
+        },
     ]
 
     return (

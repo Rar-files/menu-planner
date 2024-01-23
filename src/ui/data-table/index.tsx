@@ -17,6 +17,8 @@ export interface IColumn {
     name: string
     /** Label of the column. Example: "Name"*/
     label: string
+    /** Surfix of the data in cell. Example: "euro"*/
+    surfix?: string
     /** Width in tailwind string format. Example: "w-12"*/
     width?: string
 }
@@ -40,6 +42,7 @@ const DataTable: FC<Props> = ({ items, columns, url }) => {
                     {columns.map((column, index: number) => (
                         <Cell key={index} width={column.width}>
                             {item[column.name]}
+                            {column.surfix ? ` ${column.surfix}` : ''}
                         </Cell>
                     ))}
                 </DataRow>

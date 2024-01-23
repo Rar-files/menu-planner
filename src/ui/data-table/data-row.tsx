@@ -22,7 +22,7 @@ const BorderedRow: FC<Props> = ({ ...props }) => {
     return (
         <div className={`flex flex-col`}>
             <TemplateRow {...props} />
-            <div className={`pt-0.5 mx-2 bg-bg`} />
+            <div className={`pt-0.5 mx-1 bg-bg`} />
         </div>
     )
 }
