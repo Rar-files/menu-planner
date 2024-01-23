@@ -1,4 +1,4 @@
-import Button from '@/ui/button'
+import Button from '@/ui/elements/button'
 import { menuEndpoints } from './menu-endpoints'
 import User from './user'
 

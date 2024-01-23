@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import Button from '../button'
+import Button from '../elements/button'
 
 type Props = {
     text?: string

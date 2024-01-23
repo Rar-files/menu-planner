@@ -7,7 +7,7 @@ type Props = {
     label?: string
 }
 
-const Template: FC<Props> = ({ children, label, name }) => {
+export const Template: FC<Props> = ({ children, label, name }) => {
     const {
         formState: { errors },
     } = useFormContext()
@@ -24,5 +24,3 @@ const Template: FC<Props> = ({ children, label, name }) => {
         </div>
     )
 }
-
-export default Template

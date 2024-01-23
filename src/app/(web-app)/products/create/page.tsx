@@ -2,14 +2,12 @@
 
 import ProductResolver from '@/services/resolvers/product-resolver'
 import { IProduct, IProductCreateDTO } from '@/types/IProduct'
-import ContentBox from '@/ui/content-box'
-import DynamicArea from '@/ui/dynamic-area'
-import Form from '@/ui/form'
-import TextField from '@/ui/form/input/text-field'
-import Submit from '@/ui/form/submit'
+import { AutoWidthBox, DynamicArea } from '@/ui/layout'
+import { Submit, Form } from '@/ui/form'
+import { TextField } from '@/ui/form/input'
 import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
-import useSWR, { useSWRConfig } from 'swr'
+import { useSWRConfig } from 'swr'
 
 const ProductCreate = () => {
     const methods = useForm<IProductCreateDTO>({ resolver: ProductResolver })
@@ -34,7 +32,7 @@ const ProductCreate = () => {
 
     return (
         <DynamicArea>
-            <ContentBox>
+            <AutoWidthBox>
                 <FormProvider {...methods}>
                     <Form onSubmit={methods.handleSubmit(onSubmit)}>
                         <TextField
@@ -55,7 +53,7 @@ const ProductCreate = () => {
                         <Submit />
                     </Form>
                 </FormProvider>
-            </ContentBox>
+            </AutoWidthBox>
         </DynamicArea>
     )
 }

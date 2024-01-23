@@ -2,10 +2,10 @@
 
 import { notFound } from 'next/navigation'
 import Loader from '@/ui/loader'
-import Button from '@/ui/button'
-import ContentBox from '@/ui/content-box'
-import DynamicArea from '@/ui/dynamic-area'
-import ToolBar from '@/ui/tool-bar'
+import Button from '@/ui/elements/button'
+import ContentBox from '@/ui/layout/content-box'
+import DynamicArea from '@/ui/layout/dynamic-area'
+import ToolBar from '@/ui/layout/tool-bar'
 import useSWR from 'swr'
 import { IProduct } from '@/types/IProduct'
 

@@ -1,5 +1,5 @@
 import { FC, InputHTMLAttributes } from 'react'
-import Template from './template'
+import { Template } from './template'
 import { useFormContext } from 'react-hook-form'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {

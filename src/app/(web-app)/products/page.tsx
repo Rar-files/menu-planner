@@ -1,12 +1,10 @@
 'use client'
 
 import Loader from '@/ui/loader'
-import Button from '@/ui/button'
-import ContentBox from '@/ui/content-box'
-import DynamicArea from '@/ui/dynamic-area'
-import ToolBar from '@/ui/tool-bar'
+import Button from '@/ui/elements/button'
+import { AutoWidthBox, DynamicArea, ToolBar } from '@/ui/layout'
 import useSWR from 'swr'
-import DataTable, { IColumn } from '@/ui/data-table'
+import DataTable, { IColumn } from '@/ui/elements/data-table'
 import { useSession } from 'next-auth/react'
 
 const Products = () => {
@@ -37,7 +35,7 @@ const Products = () => {
                     </Button>
                 </ToolBar>
             ) : null}
-            <ContentBox>
+            <AutoWidthBox>
                 {isLoading ? (
                     <Loader message="Loading list of products..." />
                 ) : (
@@ -47,7 +45,7 @@ const Products = () => {
                         url="/products"
                     />
                 )}
-            </ContentBox>
+            </AutoWidthBox>
         </DynamicArea>
     )
 }
