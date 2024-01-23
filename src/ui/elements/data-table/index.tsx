@@ -25,7 +25,7 @@ export interface IColumn {
 
 const DataTable: FC<Props> = ({ items, columns, url }) => {
     return (
-        <div className={`flex flex-col p-2`}>
+        <div className={`flex flex-col`}>
             <Header>
                 {columns.map((column, index: number) => (
                     <Cell key={index} width={column.width}>

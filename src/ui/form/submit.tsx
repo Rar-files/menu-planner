@@ -7,9 +7,11 @@ type Props = {
 
 const Submit: FC<Props> = ({ text }) => {
     return (
-        <Button type="submit" icon="icon-[mdi--chevron-right]">
-            {text ? text : 'Submit'}
-        </Button>
+        <div className={`w-full flex justify-center`}>
+            <Button type="submit" icon="icon-[mdi--chevron-right]">
+                {text ? text : 'Submit'}
+            </Button>
+        </div>
     )
 }
 

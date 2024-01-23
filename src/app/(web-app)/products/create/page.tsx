@@ -2,7 +2,7 @@
 
 import ProductResolver from '@/services/resolvers/product-resolver'
 import { IProduct, IProductCreateDTO } from '@/types/IProduct'
-import { AutoWidthBox, DynamicArea } from '@/ui/layout'
+import { CentredAutoSizeBox, DynamicArea } from '@/ui/layout'
 import { Submit, Form } from '@/ui/form'
 import { TextField } from '@/ui/form/input'
 import { useRouter } from 'next/navigation'
@@ -32,7 +32,7 @@ const ProductCreate = () => {
 
     return (
         <DynamicArea>
-            <AutoWidthBox>
+            <CentredAutoSizeBox>
                 <FormProvider {...methods}>
                     <Form onSubmit={methods.handleSubmit(onSubmit)}>
                         <TextField
@@ -53,7 +53,7 @@ const ProductCreate = () => {
                         <Submit />
                     </Form>
                 </FormProvider>
-            </AutoWidthBox>
+            </CentredAutoSizeBox>
         </DynamicArea>
     )
 }
