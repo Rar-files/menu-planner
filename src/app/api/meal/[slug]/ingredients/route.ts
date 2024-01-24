@@ -8,7 +8,7 @@ import {
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/services/auth'
 import { CheckIsAdmin } from '../../../auth/check-auth-status'
-import { IMealCreateDTO, IMealUpdateDTO } from '@/types/IMeal'
+import { IMealCreateDTO, IMealUpdateDTO } from '@/types/meals/IMeal'
 import { NextResponse } from 'next/server'
 
 export const GET = async (

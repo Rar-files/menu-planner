@@ -1,4 +1,4 @@
-import { IMenuEndpoint } from '@/types/IMenuEndpoint'
+import { IMenuEndpoint } from '@/types/ui/IMenuEndpoint'
 
 export const menuEndpoints: IMenuEndpoint[] = [
     {

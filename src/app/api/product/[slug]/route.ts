@@ -1,6 +1,6 @@
 import { prisma } from '@/services/prisma'
 import { BadRequest, NotFound, Ok } from '../../predefined-responses'
-import { IProductUpdateDTO } from '@/types/IProduct'
+import { IProductUpdateDTO } from '@/types/meals/IProduct'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/services/auth'
 import { CheckIsAdmin } from '../../auth/check-auth-status'

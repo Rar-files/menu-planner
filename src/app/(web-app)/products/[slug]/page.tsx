@@ -7,7 +7,7 @@ import ContentBox from '@/ui/layout/content-box'
 import DynamicArea from '@/ui/layout/dynamic-area'
 import ToolBar from '@/ui/layout/tool-bar'
 import useSWR from 'swr'
-import { IProduct } from '@/types/IProduct'
+import { IProduct } from '@/types/meals/IProduct'
 
 const ProductInfo = ({ params }: { params: { slug: string } }) => {
     const { data: product, isLoading } = useSWR(`/api/product/${params.slug}`)

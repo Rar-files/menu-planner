@@ -3,7 +3,7 @@ import { BadRequest, NotFound, Ok } from '../../predefined-responses'
 import { getServerSession } from 'next-auth'
 import { CheckIsAdmin } from '../../auth/check-auth-status'
 import { authOptions } from '@/services/auth'
-import { IIngredientUpdateDTO } from '@/types/IIngredient'
+import { IIngredientUpdateDTO } from '@/types/meals/IIngredient'
 
 export const GET = async (
     request: Request,

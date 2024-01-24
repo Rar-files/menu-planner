@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth'
 import { BadRequest, Created, NotFound, Ok } from '../predefined-responses'
 import { prisma } from '@/services/prisma'
 import { CheckIsAdmin } from '../auth/check-auth-status'
-import { IIdRole } from '@/types/IIdRole'
+import { IIdRole } from '@/types/teams/IUser'
 
 export const POST = async (request: Request) => {
     const session = await getServerSession(authOptions)

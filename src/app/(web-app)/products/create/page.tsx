@@ -1,7 +1,7 @@
 'use client'
 
 import ProductResolver from '@/services/resolvers/product-resolver'
-import { IProduct, IProductCreateDTO } from '@/types/IProduct'
+import { IProduct, IProductCreateDTO } from '@/types/meals/IProduct'
 import { CentredAutoSizeBox, DynamicArea } from '@/ui/layout'
 import { Submit, Form } from '@/ui/form'
 import { TextField } from '@/ui/form/input'

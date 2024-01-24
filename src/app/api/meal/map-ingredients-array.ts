@@ -1,5 +1,5 @@
 import { prisma } from '@/services/prisma'
-import { IIngredientCreateDTO } from '@/types/IIngredient'
+import { IIngredientCreateDTO } from '@/types/meals/IIngredient'
 
 export const MapIngredientsArray = async (
     ingredients: IIngredientCreateDTO[]

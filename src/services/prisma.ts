@@ -1,27 +1,27 @@
-import { IIdRole } from '@/types/IIdRole'
+import { IUser } from '@/types/teams/IUser'
 import { Role } from '@prisma/client'
 import { PrismaClient, Prisma } from '@prisma/client'
 
 const getRoleExtension = Prisma.defineExtension({
     name: 'getRole',
     model: {
-        idRole: {
+        user: {
             async getRole(id: string) {
-                let idRole = await prisma.idRole.findUnique({
+                let user = await prisma.user.findUnique({
                     where: {
                         id: id,
                     },
                 })
 
-                if (!idRole)
-                    idRole = await prisma.idRole.create({
+                if (!user)
+                    user = await prisma.user.create({
                         data: {
                             id: id,
-                            role: 'User',
+                            role: 'consumer',
                         },
                     })
 
-                return (idRole as IIdRole).role as Role
+                return (user as IUser).role as Role
             },
         },
     },

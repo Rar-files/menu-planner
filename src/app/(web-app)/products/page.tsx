@@ -7,7 +7,7 @@ import useSWR from 'swr'
 import Loader from '@/ui/loader'
 import { AutoWidthBox, DynamicArea, ToolBar } from '@/ui/layout'
 import { SearchBar, Button, DataTable } from '@/ui/elements'
-import { IProduct } from '@/types/IProduct'
+import { IProduct } from '@/types/meals/IProduct'
 
 const Products = () => {
     const { data: products, isLoading } = useSWR('/api/product')
@@ -45,7 +45,7 @@ const Products = () => {
                     onChange={(event) => setSearch(event.target.value)}
                     onClose={() => setSearch('')}
                 ></SearchBar>
-                {session?.user?.role == 'Admin' ? (
+                {session?.user?.role == 'admin' ? (
                     <Button
                         secondary
                         icon="icon-[mdi--add]"

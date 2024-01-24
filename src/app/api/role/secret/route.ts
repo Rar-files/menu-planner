@@ -3,7 +3,7 @@
 
 import { BadRequest, Forbidden, NotFound, Ok } from '../../predefined-responses'
 import { prisma } from '@/services/prisma'
-import { IIdRole } from '@/types/IIdRole'
+import { IIdRole } from '@/types/teams/IUser'
 import { NextResponse } from 'next/server'
 
 type SecretUserRoleRequest = {

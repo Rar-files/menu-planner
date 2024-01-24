@@ -1,5 +1,5 @@
 import { prisma } from '@/services/prisma'
-import { IProductCreateDTO } from '@/types/IProduct'
+import { IProductCreateDTO } from '@/types/meals/IProduct'
 import { BadRequest, Created, NotFound, Ok } from '../predefined-responses'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/services/auth'
