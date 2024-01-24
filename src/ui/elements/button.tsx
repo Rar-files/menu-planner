@@ -71,7 +71,7 @@ const StyledButton: FC<StyledButtonProps> = ({
                       }`
             } text-text-contrastText`}
         >
-            <div className={`flex justify-center items-center`}>
+            <div className={`flex justify-center items-center h-full`}>
                 {children}
                 {icon && /icon-\[[^\]]*\]/.test(icon) ? (
                     <span className={`ml-1 ${icon}`} />

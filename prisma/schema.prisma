@@ -87,7 +87,7 @@ model TeamUser {
   user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   userId String
 
-  teamRole TeamRole
+  teamRole TeamRole @default(consumer)
 }
 
 enum TeamRole {

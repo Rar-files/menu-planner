@@ -1,17 +1,17 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { useSession } from 'next-auth/react'
 import useSWR from 'swr'
 
 import Loader from '@/ui/loader'
 import { AutoWidthBox, DynamicArea, ToolBar } from '@/ui/layout'
 import { SearchBar, Button, DataTable } from '@/ui/elements'
 import { IProduct } from '@/types/meals/IProduct'
+import { useAuth } from '@/hooks/useAuth'
 
 const Products = () => {
     const { data: products, isLoading } = useSWR('/api/product')
-    const { data: session } = useSession()
+    const { hasChefPermission } = useAuth()
     const [search, setSearch] = useState('')
 
     const tableColumns = useMemo(
@@ -45,7 +45,7 @@ const Products = () => {
                     onChange={(event) => setSearch(event.target.value)}
                     onClose={() => setSearch('')}
                 ></SearchBar>
-                {session?.user?.role == 'admin' ? (
+                {hasChefPermission() ? (
                     <Button
                         secondary
                         icon="icon-[mdi--add]"
