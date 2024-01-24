@@ -35,20 +35,12 @@ const ProductCreate = () => {
             <CentredAutoSizeBox>
                 <FormProvider {...methods}>
                     <Form onSubmit={methods.handleSubmit(onSubmit)}>
-                        <TextField
-                            placeholder="name"
-                            label="Name"
-                            name="name"
-                        />
-                        <TextField
-                            placeholder="unit"
-                            label="Unit"
-                            name="unit"
-                        />
+                        <TextField placeholder="name" label="Name" key="name" />
+                        <TextField placeholder="unit" label="Unit" key="unit" />
                         <TextField
                             placeholder="pricePerUnit"
                             label="Price per unit"
-                            name="pricePerUnit"
+                            key="pricePerUnit"
                         />
                         <Submit />
                     </Form>

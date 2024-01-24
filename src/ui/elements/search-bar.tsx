@@ -1,11 +1,18 @@
 import { InputHTMLAttributes, FC, useState } from 'react'
 
 interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
+    /** Applies secondary theme styling. */
     secondary?: boolean
+    /** Applies outline border styling.. */
     outline?: boolean
+    /** Callback when close icon is clicked. */
     onClose?: () => void
 }
 
+/**
+ * SearchBar component.
+ * Renders an input with open/close icon for search.
+ */
 const SearchBar: FC<SearchBarProps> = ({
     secondary,
     outline,

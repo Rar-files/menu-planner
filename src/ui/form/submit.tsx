@@ -5,6 +5,10 @@ type Props = {
     text?: string
 }
 
+/**
+ * Submit component renders a submit button.
+ * @param props.text - Optional text for the submit button.
+ */
 const Submit: FC<Props> = ({ text }) => {
     return (
         <div className={`w-full flex justify-center`}>

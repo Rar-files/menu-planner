@@ -4,6 +4,10 @@ type Props = {
     message?: string
 }
 
+/**
+ * Loader component that displays a spinning indicator
+ * and optional message while content is loading.
+ */
 const Loader: FC<Props> = ({ message }) => {
     return (
         <div className="flex flex-col justify-center items-center h-full w-full">
