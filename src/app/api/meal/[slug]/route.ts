@@ -1,10 +1,14 @@
 import { prisma } from '@/services/prisma'
-import { BadRequest, NotFound, Ok } from '../../predefined-responses'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/services/auth'
-import { CheckIsAdmin } from '../../auth/check-auth-status'
+import {
+    BadRequest,
+    Forbidden,
+    NotFound,
+    Ok,
+    Unauthorized,
+} from '../../predefined-responses'
 import { IMealUpdateDTO } from '@/types/meals/IMeal'
 import { GetMealSlug } from '../get-meal-slug'
+import { useServerAuth } from '@/hooks/auth/useServerAuth'
 
 export const GET = async (
     request: Request,
@@ -34,9 +38,9 @@ export const PUT = async (
     request: Request,
     { params }: { params: { slug: string } }
 ) => {
-    const session = await getServerSession(authOptions)
-    const isAdminStatus = await CheckIsAdmin(session)
-    if (isAdminStatus !== true) return isAdminStatus
+    const { isLoggedIn, hasAdminPermission } = await useServerAuth()
+    if (isLoggedIn()) return Unauthorized()
+    if (hasAdminPermission()) return Forbidden()
 
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')
@@ -50,15 +54,14 @@ export const PUT = async (
 
     if (!mealToUpdate) return NotFound(`Meal with slug ${params.slug}`)
 
-    if (body.name || body.date || body.type) {
-        body = {
-            ...body,
-            slug: GetMealSlug({
-                ...mealToUpdate,
-                ...body,
-            }),
-        }
-    }
+    const data = body.name
+        ? {
+              ...body,
+              slug: GetMealSlug({
+                  name: body.name,
+              }),
+          }
+        : { ...body, slug: undefined }
 
     const updatedMeal = await prisma.meal.update({
         where: {
@@ -73,7 +76,7 @@ export const PUT = async (
         },
         data: {
             ...mealToUpdate,
-            ...body,
+            ...data,
         },
     })
 
@@ -84,9 +87,9 @@ export const DELETE = async (
     request: Request,
     { params }: { params: { slug: string } }
 ) => {
-    const session = await getServerSession(authOptions)
-    const isAdminStatus = await CheckIsAdmin(session)
-    if (isAdminStatus !== true) return isAdminStatus
+    const { isLoggedIn, hasAdminPermission } = await useServerAuth()
+    if (isLoggedIn()) return Unauthorized()
+    if (hasAdminPermission()) return Forbidden()
 
     let isRemoved = true
     await prisma.meal

@@ -7,7 +7,7 @@ import Loader from '@/ui/loader'
 import { AutoWidthBox, DynamicArea, ToolBar } from '@/ui/layout'
 import { SearchBar, Button, DataTable } from '@/ui/elements'
 import { IProduct } from '@/types/meals/IProduct'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/hooks/auth/useAuth'
 
 const Products = () => {
     const { data: products, isLoading } = useSWR('/api/product')

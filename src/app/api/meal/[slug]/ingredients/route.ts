@@ -1,15 +1,5 @@
 import { prisma } from '@/services/prisma'
-import {
-    BadRequest,
-    NotFound,
-    Ok,
-    Unauthorized,
-} from '../../../predefined-responses'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/services/auth'
-import { CheckIsAdmin } from '../../../auth/check-auth-status'
-import { IMealCreateDTO, IMealUpdateDTO } from '@/types/meals/IMeal'
-import { NextResponse } from 'next/server'
+import { NotFound, Ok } from '../../../predefined-responses'
 
 export const GET = async (
     request: Request,

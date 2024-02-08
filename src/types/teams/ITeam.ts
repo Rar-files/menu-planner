@@ -8,3 +8,7 @@ export interface ITeam {
     mealEvents: IMealEvent[]
     users: ITeamUser[]
 }
+
+export interface ITeamDTO {
+    name: string
+}

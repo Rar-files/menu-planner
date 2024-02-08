@@ -3,12 +3,12 @@
 
 import { BadRequest, Forbidden, NotFound, Ok } from '../../predefined-responses'
 import { prisma } from '@/services/prisma'
-import { IIdRole } from '@/types/teams/IUser'
+import { IUser } from '@/types/teams/IUser'
 import { NextResponse } from 'next/server'
 
 type SecretUserRoleRequest = {
     secret: string
-    idRole: IIdRole
+    user: IUser
 }
 
 export const PUT = async (request: Request) => {
@@ -24,20 +24,20 @@ export const PUT = async (request: Request) => {
 
     if (body.secret != putSecret) return Forbidden()
 
-    if (!body.idRole) return BadRequest('userRole')
-    if (!body.idRole.id) return BadRequest('email')
-    if (!body.idRole.role) return BadRequest('role')
+    if (!body.user) return BadRequest('userRole')
+    if (!body.user.id) return BadRequest('email')
+    if (!body.user.role) return BadRequest('role')
 
-    const idRole = await prisma.idRole.update({
+    const user = await prisma.user.update({
         where: {
-            id: body.idRole.id,
+            id: body.user.id,
         },
         data: {
-            ...body.idRole,
+            role: body.user.role,
         },
     })
 
-    if (!idRole) return NotFound(`idRole with id ${body.idRole.id}`)
+    if (!user) return NotFound(`User with id ${body.user.id}`)
 
-    return Ok(idRole)
+    return Ok(user)
 }

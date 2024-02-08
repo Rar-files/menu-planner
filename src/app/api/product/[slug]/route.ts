@@ -1,9 +1,13 @@
 import { prisma } from '@/services/prisma'
-import { BadRequest, NotFound, Ok } from '../../predefined-responses'
+import {
+    BadRequest,
+    Forbidden,
+    NotFound,
+    Ok,
+    Unauthorized,
+} from '../../predefined-responses'
 import { IProductUpdateDTO } from '@/types/meals/IProduct'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/services/auth'
-import { CheckIsAdmin } from '../../auth/check-auth-status'
+import { useServerAuth } from '@/hooks/auth/useServerAuth'
 
 export const GET = async (
     request: Request,
@@ -26,9 +30,9 @@ export const PUT = async (
     request: Request,
     { params }: { params: { slug: string } }
 ) => {
-    const session = await getServerSession(authOptions)
-    const isAdminStatus = await CheckIsAdmin(session)
-    if (isAdminStatus !== true) return isAdminStatus
+    const { isLoggedIn, hasAdminPermission } = await useServerAuth()
+    if (isLoggedIn()) return Unauthorized()
+    if (hasAdminPermission()) return Forbidden()
 
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')
@@ -58,9 +62,9 @@ export const DELETE = async (
     request: Request,
     { params }: { params: { slug: string } }
 ) => {
-    const session = await getServerSession(authOptions)
-    const isAdminStatus = await CheckIsAdmin(session)
-    if (isAdminStatus !== true) return isAdminStatus
+    const { isLoggedIn, hasAdminPermission } = await useServerAuth()
+    if (isLoggedIn()) return Unauthorized()
+    if (hasAdminPermission()) return Forbidden()
 
     let isRemoved = true
     await prisma.product

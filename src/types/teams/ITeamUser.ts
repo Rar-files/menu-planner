@@ -10,3 +10,9 @@ export interface ITeamUser {
     userId: string
     teamRole: TeamRole
 }
+
+export interface ITeamUserDTO {
+    teamId: number
+    userId: string
+    teamRole: TeamRole
+}

@@ -1,12 +1,17 @@
 import { prisma } from '@/services/prisma'
-import { BadRequest, Created, NotFound, Ok } from '../predefined-responses'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/services/auth'
+import {
+    BadRequest,
+    Created,
+    Forbidden,
+    NotFound,
+    Ok,
+    Unauthorized,
+} from '../predefined-responses'
 import { IMealCreateDTO } from '@/types/meals/IMeal'
-import { CheckIsAdmin } from '../auth/check-auth-status'
 import { MapIngredientsArray } from './map-ingredients-array'
 import { NextResponse } from 'next/server'
 import { GetMealSlug } from './get-meal-slug'
+import { useServerAuth } from '@/hooks/auth/useServerAuth'
 
 export const GET = async () => {
     const meals = await prisma.meal.findMany({})
@@ -17,9 +22,9 @@ export const GET = async () => {
 }
 
 export const POST = async (request: Request) => {
-    const session = await getServerSession(authOptions)
-    const isAdminStatus = await CheckIsAdmin(session)
-    if (isAdminStatus !== true) return isAdminStatus
+    const { isLoggedIn, hasAdminPermission } = await useServerAuth()
+    if (isLoggedIn()) return Unauthorized()
+    if (hasAdminPermission()) return Forbidden()
 
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')

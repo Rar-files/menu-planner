@@ -1,72 +1,55 @@
-import { authOptions } from '@/services/auth'
-import { getServerSession } from 'next-auth'
-import { BadRequest, Created, NotFound, Ok } from '../predefined-responses'
+import {
+    BadRequest,
+    Forbidden,
+    NotFound,
+    Ok,
+    Unauthorized,
+} from '../predefined-responses'
 import { prisma } from '@/services/prisma'
-import { CheckIsAdmin } from '../auth/check-auth-status'
-import { IIdRole } from '@/types/teams/IUser'
-
-export const POST = async (request: Request) => {
-    const session = await getServerSession(authOptions)
-    const isAdminStatus = await CheckIsAdmin(session)
-    if (isAdminStatus !== true) return isAdminStatus
-
-    if (request.headers.get('content-type') !== 'application/json')
-        return BadRequest('Body of application/json type')
-
-    const body: IIdRole = await request.json()
-
-    if (!body.id) return BadRequest('email')
-
-    const idRole = await prisma.idRole.create({
-        data: {
-            ...body,
-        },
-    })
-
-    return Created(idRole)
-}
+import { IUser } from '@/types/teams/IUser'
+import { useServerAuth } from '@/hooks/auth/useServerAuth'
 
 export const PUT = async (request: Request) => {
-    const session = await getServerSession(authOptions)
-    const isAdminStatus = await CheckIsAdmin(session)
-    if (isAdminStatus !== true) return isAdminStatus
+    const { isLoggedIn, hasAdminPermission } = await useServerAuth()
+    if (isLoggedIn()) return Unauthorized()
+    if (hasAdminPermission()) return Forbidden()
 
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')
 
-    const body: IIdRole = await request.json()
+    const body: IUser = await request.json()
 
     if (!body.id) return BadRequest('email')
     if (!body.role) return BadRequest('role')
 
-    const idRole = await prisma.idRole.update({
+    const user = await prisma.user.update({
         where: {
             id: body.id,
         },
         data: {
-            ...body,
+            role: body.role,
         },
     })
 
-    if (!idRole) return NotFound(`idRole with id ${body.id}`)
+    if (!user) return NotFound(`User with id ${body.id}`)
 
-    return Ok(idRole)
+    return Ok(user)
 }
 
 export const DELETE = async (request: Request) => {
-    const session = await getServerSession(authOptions)
-    const isAdminStatus = await CheckIsAdmin(session)
-    if (isAdminStatus !== true) return isAdminStatus
+    const { isLoggedIn, hasAdminPermission } = await useServerAuth()
+    if (isLoggedIn()) return Unauthorized()
+    if (hasAdminPermission()) return Forbidden()
 
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')
 
-    const body: IIdRole = await request.json()
+    const body: IUser = await request.json()
 
     if (!body.id) return BadRequest('email')
 
     let isRemoved = true
-    await prisma.idRole
+    await prisma.user
         .delete({
             where: {
                 id: body.id,
@@ -76,7 +59,7 @@ export const DELETE = async (request: Request) => {
             isRemoved = false
         })
 
-    if (!isRemoved) return NotFound(`idRole with id ${body.id}`)
+    if (!isRemoved) return NotFound(`User with id ${body.id}`)
 
     return Ok()
 }

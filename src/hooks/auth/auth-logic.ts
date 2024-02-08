@@ -1,8 +1,6 @@
-import { useSession } from 'next-auth/react'
+import { Session } from 'next-auth'
 
-const useAuth = () => {
-    const { data: session } = useSession()
-
+const authHookLogic = (session: Session | null) => {
     const isLoggedIn = (): boolean => (session ? !!session.user : false)
 
     const isCook = (): boolean => session?.user?.role === 'cook'
@@ -15,7 +13,10 @@ const useAuth = () => {
     const hasChefPermission = (): boolean =>
         isLoggedIn() && (isChef() || isAdmin())
 
-    const hasAdminPermission = (): boolean => isLoggedIn() && isAdmin()
+    const hasAdminPermission = (): boolean => {
+        console.warn('session: ', session)
+        return true
+    }
 
     return {
         isLoggedIn,
@@ -25,4 +26,4 @@ const useAuth = () => {
     }
 }
 
-export { useAuth }
+export { authHookLogic }
