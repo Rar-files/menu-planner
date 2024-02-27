@@ -11,7 +11,7 @@ import { useSWRConfig } from 'swr'
 
 const ProductCreate = () => {
     const methods = useForm<IProductCreateDTO>({ resolver: ProductResolver })
-    const url = '/api/product'
+    const url = '/api/products'
     const { fetcher } = useSWRConfig()
     const router = useRouter()
 
@@ -27,7 +27,7 @@ const ProductCreate = () => {
             body: JSON.stringify(data),
         })) as IProduct
 
-        router.push(`${created.slug}`)
+        if (created) router.push(`${created.slug}`)
     }
 
     return (
@@ -35,12 +35,20 @@ const ProductCreate = () => {
             <CentredAutoSizeBox>
                 <FormProvider {...methods}>
                     <Form onSubmit={methods.handleSubmit(onSubmit)}>
-                        <TextField placeholder="name" label="Name" key="name" />
-                        <TextField placeholder="unit" label="Unit" key="unit" />
+                        <TextField
+                            placeholder="name"
+                            label="Name"
+                            valueKey="name"
+                        />
+                        <TextField
+                            placeholder="unit"
+                            label="Unit"
+                            valueKey="unit"
+                        />
                         <TextField
                             placeholder="pricePerUnit"
                             label="Price per unit"
-                            key="pricePerUnit"
+                            valueKey="pricePerUnit"
                         />
                         <Submit />
                     </Form>

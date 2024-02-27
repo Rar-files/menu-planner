@@ -20,8 +20,8 @@ export const GET = async () => {
 
 export const POST = async (request: Request) => {
     const { isLoggedIn, hasAdminPermission } = await useServerAuth()
-    if (isLoggedIn()) return Unauthorized()
-    if (hasAdminPermission()) return Forbidden()
+    if (!isLoggedIn()) return Unauthorized()
+    if (!hasAdminPermission()) return Forbidden()
 
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')

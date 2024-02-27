@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form'
 
 type Props = {
     children: React.ReactNode
-    key: string
+    valueKey: string
     label?: string
 }
 
@@ -12,12 +12,12 @@ type Props = {
  * Accepts the form input component as children, plus label and form key props.
  * Renders the label, input, and error message from react-hook-form errors.
  */
-export const Template: FC<Props> = ({ children, label, key }) => {
+export const Template: FC<Props> = ({ children, label, valueKey }) => {
     const {
         formState: { errors },
     } = useFormContext()
 
-    const error = errors[key]?.message
+    const error = errors[valueKey]?.message
 
     return (
         <div className={`flex flex-col justify-start w-full`}>
@@ -29,7 +29,7 @@ export const Template: FC<Props> = ({ children, label, key }) => {
                     error ? 'h-6' : 'h-3'
                 } overflow-auto mb-1`}
             >
-                {error ? `${errors[key]?.message}` : null}
+                {error ? `${errors[valueKey]?.message}` : null}
             </div>
         </div>
     )

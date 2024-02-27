@@ -58,9 +58,12 @@ model Ingredient {
 
 enum MealType {
   breakfast
+  brunch
+  elevenses
   lunch
+  tea
+  supper
   dinner
-  snack
 }
 
 enum Unit {
@@ -70,9 +73,10 @@ enum Unit {
 }
 
 model Team {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  slug String @unique
+  id            Int        @id @default(autoincrement())
+  name          String     @unique
+  slug          String     @unique
+  viewMealTypes MealType[]
 
   mealEvents MealEvent[]
   users      TeamUser[]

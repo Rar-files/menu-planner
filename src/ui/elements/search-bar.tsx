@@ -37,6 +37,7 @@ const SearchBar: FC<SearchBarProps> = ({
                 <input
                     className={`ml-2 bg-opacity-0 bg-bg focus:outline-none border-text-contrastText border-r-2`}
                     {...props}
+                    autoFocus
                 ></input>
             ) : null}
             <div

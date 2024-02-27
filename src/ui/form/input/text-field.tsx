@@ -3,7 +3,7 @@ import { Template } from './template'
 import { useFormContext } from 'react-hook-form'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-    key: string
+    valueKey: string
     label?: string
 }
 
@@ -14,13 +14,13 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
  * Renders an input wrapped in a Template.
  * Uses React Hook Form's register to register the input with provided key.
  */
-const TextField: FC<Props> = ({ key, label, ...props }) => {
+const TextField: FC<Props> = ({ valueKey, label, ...props }) => {
     const { register } = useFormContext()
 
     return (
-        <Template key={key} label={label}>
+        <Template valueKey={valueKey} label={label}>
             <input
-                {...register(key)}
+                {...register(valueKey)}
                 {...props}
                 className={`border-bg border-b-2 bg-opacity-0 bg-bg h-8 focus:bg-opacity-20 focus:outline-none`}
             />
