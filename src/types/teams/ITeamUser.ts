@@ -1,6 +1,6 @@
 import { TeamRole } from '@prisma/client'
-import { IUser } from './IUser'
 import { ITeam } from './ITeam'
+import { IUser } from '../users/IUser'
 
 export interface ITeamUser {
     id: string

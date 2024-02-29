@@ -10,7 +10,7 @@ import { IProduct } from '@/types/meals/IProduct'
 import { useAuth } from '@/hooks/auth/useAuth'
 
 const Products = () => {
-    const { data: products, isLoading } = useSWR('/api/products')
+    const { data: products, isLoading } = useSWR('/api/meals/products')
     const { hasChefPermission } = useAuth()
     const [search, setSearch] = useState('')
 
@@ -62,7 +62,7 @@ const Products = () => {
                     <DataTable
                         items={productsFiltered}
                         columns={tableColumns}
-                        url="/products"
+                        url="products"
                     />
                 )}
             </AutoWidthBox>

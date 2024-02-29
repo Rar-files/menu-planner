@@ -21,8 +21,8 @@ export const authOptions: NextAuthOptions = {
         async jwt({ token, user }) {
             /* Step 1: update the token based on the user object */
             if (user) {
-                const role = await prisma.user.getRole(user.id)
-                token = { ...user, role: role }
+                const authedUser = await prisma.user.auth(user)
+                token = { ...authedUser }
             }
 
             return token

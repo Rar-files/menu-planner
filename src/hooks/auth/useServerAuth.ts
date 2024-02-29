@@ -5,7 +5,7 @@ import { authOptions } from '@/services/auth'
 const useServerAuth = async () => {
     const session = await getServerSession(authOptions)
 
-    return authHookLogic(session)
+    return { ...authHookLogic(session), session }
 }
 
 export { useServerAuth }

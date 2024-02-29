@@ -4,10 +4,10 @@ import {
     NotFound,
     Ok,
     Unauthorized,
-} from '../predefined-responses'
+} from '../../predefined-responses'
 import { prisma } from '@/services/prisma'
-import { IUser } from '@/types/teams/IUser'
 import { useServerAuth } from '@/hooks/auth/useServerAuth'
+import { IUser } from '@/types/users/IUser'
 
 export const PUT = async (request: Request) => {
     const { isLoggedIn, hasAdminPermission } = await useServerAuth()

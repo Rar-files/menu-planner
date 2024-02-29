@@ -11,7 +11,7 @@ import { useSWRConfig } from 'swr'
 
 const ProductCreate = () => {
     const methods = useForm<IProductCreateDTO>({ resolver: ProductResolver })
-    const url = '/api/products'
+    const url = '/api/meals/products'
     const { fetcher } = useSWRConfig()
     const router = useRouter()
 

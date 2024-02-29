@@ -4,7 +4,7 @@ import { authHookLogic } from './auth-logic'
 
 const useAuth = () => {
     const session = useContext(AuthContext)
-    return authHookLogic(session)
+    return { ...authHookLogic(session), session }
 }
 
 export { useAuth }

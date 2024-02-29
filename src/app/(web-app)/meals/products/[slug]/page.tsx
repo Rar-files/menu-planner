@@ -10,7 +10,9 @@ import useSWR from 'swr'
 import { IProduct } from '@/types/meals/IProduct'
 
 const ProductInfo = ({ params }: { params: { slug: string } }) => {
-    const { data: product, isLoading } = useSWR(`/api/product/${params.slug}`)
+    const { data: product, isLoading } = useSWR(
+        `/api/meals/products/${params.slug}`
+    )
 
     if (!isLoading && product?.length === 0) return notFound()
 

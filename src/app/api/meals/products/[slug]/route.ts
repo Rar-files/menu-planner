@@ -5,7 +5,7 @@ import {
     NotFound,
     Ok,
     Unauthorized,
-} from '../../predefined-responses'
+} from '../../../predefined-responses'
 import { IProductUpdateDTO } from '@/types/meals/IProduct'
 import { useServerAuth } from '@/hooks/auth/useServerAuth'
 

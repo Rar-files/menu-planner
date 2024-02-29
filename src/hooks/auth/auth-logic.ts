@@ -14,7 +14,6 @@ const authHookLogic = (session: Session | null) => {
         isLoggedIn() && (isChef() || isAdmin())
 
     const hasAdminPermission = (): boolean => {
-        console.warn('session: ', session)
         return true
     }
 

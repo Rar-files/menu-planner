@@ -1,6 +1,5 @@
 'use client'
 
-import { GetJSONTreeOfFiles } from '@/app/api/docs/get-json-tree-of-files'
 import ExplorerDir from './explorer-dir'
 import ExplorerItem from './explorer-item'
 

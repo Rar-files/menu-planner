@@ -73,13 +73,22 @@ enum Unit {
 }
 
 model Team {
-  id            Int        @id @default(autoincrement())
-  name          String     @unique
-  slug          String     @unique
-  viewMealTypes MealType[]
+  id            Int            @id @default(autoincrement())
+  name          String         @unique
+  slug          String         @unique
+  viewMealTypes TeamMealType[]
 
   mealEvents MealEvent[]
   users      TeamUser[]
+}
+
+model TeamMealType {
+  mealType MealType
+
+  team   Team @relation(fields: [teamId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  teamId Int
+
+  @@id(name: "id", [teamId, mealType])
 }
 
 model TeamUser {
@@ -101,8 +110,11 @@ enum TeamRole {
 }
 
 model User {
-  id   String @unique
-  role Role   @default(consumer)
+  id    String @unique
+  role  Role   @default(consumer)
+  name  String
+  email String
+  image String
 
   teams TeamUser[]
 }

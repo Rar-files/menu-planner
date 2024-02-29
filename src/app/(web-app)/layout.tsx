@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 
-import '@/styles/tailwind.css'
 import WebAppProviders from '@/services/providers/web-app-providers.tsx'
 import SessionLoader from './session-loader'
 import MenuBar from '@/components/menu-bar'

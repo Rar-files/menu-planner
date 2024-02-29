@@ -8,7 +8,7 @@ type Props = {
     items: any[]
     //** Columns to be displayed in the table. Example: [{name: "name", label: "Name", width: "w-12"}] */
     columns: IColumn[]
-    /** Url of more info about item page. Example: "/products"*/
+    /** Url of more info about item page. Example: "/meals/products"*/
     url?: string
 }
 

@@ -1,9 +1,14 @@
 // This is a backdoor endpoint, for put initial admin role to first user in database.
 // After this operation recommand to remowe 'USERROLE_PUT_SECRET' env variable to disable this fuction
 
-import { BadRequest, Forbidden, NotFound, Ok } from '../../predefined-responses'
+import {
+    BadRequest,
+    Forbidden,
+    NotFound,
+    Ok,
+} from '../../../predefined-responses'
 import { prisma } from '@/services/prisma'
-import { IUser } from '@/types/teams/IUser'
+import { IUser } from '@/types/users/IUser'
 import { NextResponse } from 'next/server'
 
 type SecretUserRoleRequest = {

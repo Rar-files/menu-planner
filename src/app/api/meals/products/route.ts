@@ -7,7 +7,7 @@ import {
     NotFound,
     Ok,
     Unauthorized,
-} from '../predefined-responses'
+} from '../../predefined-responses'
 import { useServerAuth } from '@/hooks/auth/useServerAuth'
 
 export const GET = async () => {
