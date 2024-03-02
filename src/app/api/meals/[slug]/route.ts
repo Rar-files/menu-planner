@@ -7,8 +7,8 @@ import {
     Unauthorized,
 } from '../../predefined-responses'
 import { IMealUpdateDTO } from '@/types/meals/IMeal'
-import { GetMealSlug } from '../get-meal-slug'
 import { useServerAuth } from '@/hooks/auth/useServerAuth'
+import { useSlug } from '@/hooks/useSlug'
 
 export const GET = async (
     request: Request,
@@ -38,8 +38,9 @@ export const PUT = async (
     request: Request,
     { params }: { params: { slug: string } }
 ) => {
+    const { toSlug } = useSlug()
     const { isLoggedIn, hasAdminPermission } = await useServerAuth()
-    if (isLoggedIn()) return Unauthorized()
+    if (!isLoggedIn()) return Unauthorized()
     if (hasAdminPermission()) return Forbidden()
 
     if (request.headers.get('content-type') !== 'application/json')
@@ -57,9 +58,7 @@ export const PUT = async (
     const data = body.name
         ? {
               ...body,
-              slug: GetMealSlug({
-                  name: body.name,
-              }),
+              slug: toSlug([body.name]),
           }
         : { ...body, slug: undefined }
 
@@ -88,7 +87,7 @@ export const DELETE = async (
     { params }: { params: { slug: string } }
 ) => {
     const { isLoggedIn, hasAdminPermission } = await useServerAuth()
-    if (isLoggedIn()) return Unauthorized()
+    if (!isLoggedIn()) return Unauthorized()
     if (hasAdminPermission()) return Forbidden()
 
     let isRemoved = true

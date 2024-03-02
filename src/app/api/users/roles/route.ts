@@ -11,7 +11,7 @@ import { IUser } from '@/types/users/IUser'
 
 export const PUT = async (request: Request) => {
     const { isLoggedIn, hasAdminPermission } = await useServerAuth()
-    if (isLoggedIn()) return Unauthorized()
+    if (!isLoggedIn()) return Unauthorized()
     if (hasAdminPermission()) return Forbidden()
 
     if (request.headers.get('content-type') !== 'application/json')
@@ -38,7 +38,7 @@ export const PUT = async (request: Request) => {
 
 export const DELETE = async (request: Request) => {
     const { isLoggedIn, hasAdminPermission } = await useServerAuth()
-    if (isLoggedIn()) return Unauthorized()
+    if (!isLoggedIn()) return Unauthorized()
     if (hasAdminPermission()) return Forbidden()
 
     if (request.headers.get('content-type') !== 'application/json')

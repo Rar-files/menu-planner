@@ -39,7 +39,7 @@ export const PUT = async (
     if (!params.id) return NotFound('id')
     const ingredientId = +params.id
 
-    if (isLoggedIn()) return Unauthorized()
+    if (!isLoggedIn()) return Unauthorized()
     if (hasAdminPermission()) return Forbidden()
 
     if (request.headers.get('content-type') !== 'application/json')
@@ -98,7 +98,7 @@ export const DELETE = async (
     { params }: { params: { id: string } }
 ) => {
     const { isLoggedIn, hasAdminPermission } = await useServerAuth()
-    if (isLoggedIn()) return Unauthorized()
+    if (!isLoggedIn()) return Unauthorized()
     if (hasAdminPermission()) return Forbidden()
 
     let isRemoved = true

@@ -10,8 +10,8 @@ import {
 import { IMealCreateDTO } from '@/types/meals/IMeal'
 import { MapIngredientsArray } from './map-ingredients-array'
 import { NextResponse } from 'next/server'
-import { GetMealSlug } from './get-meal-slug'
 import { useServerAuth } from '@/hooks/auth/useServerAuth'
+import { useSlug } from '@/hooks/useSlug'
 
 export const GET = async () => {
     const meals = await prisma.meal.findMany({})
@@ -22,8 +22,9 @@ export const GET = async () => {
 }
 
 export const POST = async (request: Request) => {
+    const { toSlug } = useSlug()
     const { isLoggedIn, hasAdminPermission } = await useServerAuth()
-    if (isLoggedIn()) return Unauthorized()
+    if (!isLoggedIn()) return Unauthorized()
     if (hasAdminPermission()) return Forbidden()
 
     if (request.headers.get('content-type') !== 'application/json')
@@ -46,7 +47,7 @@ export const POST = async (request: Request) => {
         },
         data: {
             ...body,
-            slug: GetMealSlug({ ...body }),
+            slug: toSlug(body),
             ingredients: {
                 create: ingredients,
             },

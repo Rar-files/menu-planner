@@ -31,7 +31,7 @@ export const PUT = async (
     { params }: { params: { slug: string } }
 ) => {
     const { isLoggedIn, hasAdminPermission } = await useServerAuth()
-    if (isLoggedIn()) return Unauthorized()
+    if (!isLoggedIn()) return Unauthorized()
     if (hasAdminPermission()) return Forbidden()
 
     if (request.headers.get('content-type') !== 'application/json')
@@ -63,7 +63,7 @@ export const DELETE = async (
     { params }: { params: { slug: string } }
 ) => {
     const { isLoggedIn, hasAdminPermission } = await useServerAuth()
-    if (isLoggedIn()) return Unauthorized()
+    if (!isLoggedIn()) return Unauthorized()
     if (hasAdminPermission()) return Forbidden()
 
     let isRemoved = true

@@ -49,7 +49,7 @@ export const POST = async (
     { params }: { params: { slug: string } }
 ) => {
     const { isLoggedIn } = await useServerAuth()
-    if (isLoggedIn()) return Unauthorized()
+    if (!isLoggedIn()) return Unauthorized()
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')
 
@@ -79,7 +79,7 @@ export const PUT = async (
     { params }: { params: { slug: string } }
 ) => {
     const { isLoggedIn } = await useServerAuth()
-    if (isLoggedIn()) return Unauthorized()
+    if (!isLoggedIn()) return Unauthorized()
     if (request.headers.get('content-type') !== 'application/json')
         return BadRequest('Body of application/json type')
 
@@ -114,7 +114,7 @@ export const DELETE = async (
     { params }: { params: { slug: string } }
 ) => {
     const { isLoggedIn } = await useServerAuth()
-    if (isLoggedIn()) return Unauthorized()
+    if (!isLoggedIn()) return Unauthorized()
 
     if (!params.slug) return NotFound('slug')
 
