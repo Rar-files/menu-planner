@@ -10,7 +10,7 @@ type Props = {
 const DataRow: FC<Props> = ({ href, ...props }) => {
     if (href)
         return (
-            <Link href={href}>
+            <Link href={href} scroll={false}>
                 <BorderedRow {...props} />
             </Link>
         )

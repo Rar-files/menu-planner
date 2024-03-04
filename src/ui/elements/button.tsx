@@ -28,7 +28,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: FC<ButtonProps> = ({ href, ...props }) => {
     if (href) {
         return (
-            <Link href={href}>
+            <Link href={href} scroll={false}>
                 <StyledButton {...props}></StyledButton>
             </Link>
         )
