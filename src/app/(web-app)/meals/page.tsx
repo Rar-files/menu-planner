@@ -40,13 +40,18 @@ const Meals = () => {
                     onClose={() => setSearch('')}
                 ></SearchBar>
                 {hasChefPermission() ? (
-                    <Button
-                        secondary
-                        icon="icon-[mdi--add]"
-                        href="meals/create"
-                    >
-                        Create
-                    </Button>
+                    <>
+                        <Button secondary href="meals/products">
+                            Products
+                        </Button>
+                        <Button
+                            secondary
+                            icon="icon-[mdi--add]"
+                            href="meals/create"
+                        >
+                            Create
+                        </Button>
+                    </>
                 ) : null}
             </ToolBar>
             <AutoWidthBox>
