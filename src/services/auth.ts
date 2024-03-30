@@ -36,4 +36,10 @@ export const authOptions: NextAuthOptions = {
             return session
         },
     },
+    theme: {
+        colorScheme: 'auto',
+        brandColor: '#4f46e5',
+        logo: '/favicon.ico',
+        buttonText: '#fff',
+    },
 }

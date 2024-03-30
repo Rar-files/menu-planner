@@ -1,10 +1,11 @@
 import { IMenuEndpoint } from '@/types/ui/IMenuEndpoint'
 
 export const menuEndpoints: IMenuEndpoint[] = [
-    {
-        name: 'Home',
-        href: '/',
-    },
+    // Temporarily while the page is empty
+    // {
+    //     name: 'Home',
+    //     href: '/',
+    // },
     {
         name: 'Teams',
         href: '/teams',

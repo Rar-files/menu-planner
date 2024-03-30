@@ -1,5 +1,7 @@
+import { redirect } from 'next/navigation'
+
 const Home = () => {
-    return <h1>Hello home!</h1>
+    redirect(`/teams`) //Temporary redirect to teams
 }
 
 export default Home

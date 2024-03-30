@@ -2,6 +2,7 @@
 
 import { AuthContext } from '@/services/providers/web-app-providers.tsx/auth-provider'
 import Loader from '@/ui/loader'
+import { signIn } from 'next-auth/react'
 import { useContext } from 'react'
 
 const SessionLoader = ({ children }: { children: React.ReactNode }) => {
@@ -15,6 +16,8 @@ const SessionLoader = ({ children }: { children: React.ReactNode }) => {
                 <Loader />
             </div>
         )
+
+    if (!session?.user) signIn()
 
     return children
 }
