@@ -51,7 +51,7 @@ jobs:
           context: ./
           tags: /
             ghcr.io/Rar-files/${{ github.repository }}:${{ github.sha }}
-          push: ${{github.ref == 'refs/heads/main'
+          push: ${{github.ref == 'refs/heads/main' }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
