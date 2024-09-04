@@ -8,13 +8,13 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 COPY prisma ./prisma
 
-RUN yarn install --production=true --frozen-lockfile --ignore-scripts \
-    && npx prisma generate \
-    && cp -R node_modules prod_node_modules \
-    && yarn install --production=false --prefer-offline \
-    && npx prisma generate \
-    && rm -rf prisma \
-    && yarn cache clean
+RUN yarn install --production=true --frozen-lockfile --ignore-scripts
+RUN npx prisma generate
+RUN cp -R node_modules prod_node_modules
+RUN yarn install --production=false --prefer-offline
+RUN npx prisma generate
+RUN rm -rf prisma
+RUN yarn cache clean
 
 
 #Builder:
@@ -34,7 +34,8 @@ ENV POSTGRES_URL_NON_POOLING=$ARG_POSTGRES_URL_NON_POOLING
 RUN echo "POSTGRES_URL=$POSTGRES_URL"
 RUN echo "POSTGRES_URL_NON_POOLING=$POSTGRES_URL_NON_POOLING"
 
-RUN yarn build && rm -rf node_modules
+RUN yarn build
+RUN rm -rf node_modules
 
 
 #Production:
