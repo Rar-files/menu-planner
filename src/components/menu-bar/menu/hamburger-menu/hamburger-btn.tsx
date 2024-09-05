@@ -1,4 +1,4 @@
-import { IMenuEndpoint } from '@/types/IMenuEndpoint'
+import { IMenuEndpoint } from '@/types/ui/IMenuEndpoint'
 import Link from 'next/link'
 import { FC } from 'react'
 

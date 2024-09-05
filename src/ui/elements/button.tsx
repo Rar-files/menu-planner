@@ -10,10 +10,25 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     icon?: string
 }
 
+/**
+ * Button component with various styling options.
+ *
+ * ButtonProps defines the props for the main Button component.
+ * It extends ButtonHTMLAttributes to allow passing through all native button props.
+ *
+ * Added props:
+ * - href: Renders a Next.js Link instead of a button
+ * - secondary: Applies secondary theme styling
+ * - bold: Makes text bold
+ * - outline: Renders outline style button
+ * - icon: Renders an icon
+ *
+ * StyledButton is an internal component that applies the various style props.
+ */
 const Button: FC<ButtonProps> = ({ href, ...props }) => {
     if (href) {
         return (
-            <Link href={href}>
+            <Link href={href} scroll={false}>
                 <StyledButton {...props}></StyledButton>
             </Link>
         )
@@ -56,7 +71,7 @@ const StyledButton: FC<StyledButtonProps> = ({
                       }`
             } text-text-contrastText`}
         >
-            <div className={`flex justify-center items-center`}>
+            <div className={`flex justify-center items-center h-full`}>
                 {children}
                 {icon && /icon-\[[^\]]*\]/.test(icon) ? (
                     <span className={`ml-1 ${icon}`} />

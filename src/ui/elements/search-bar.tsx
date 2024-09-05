@@ -1,11 +1,18 @@
 import { InputHTMLAttributes, FC, useState } from 'react'
 
 interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
+    /** Applies secondary theme styling. */
     secondary?: boolean
+    /** Applies outline border styling.. */
     outline?: boolean
+    /** Callback when close icon is clicked. */
     onClose?: () => void
 }
 
+/**
+ * SearchBar component.
+ * Renders an input with open/close icon for search.
+ */
 const SearchBar: FC<SearchBarProps> = ({
     secondary,
     outline,
@@ -30,6 +37,7 @@ const SearchBar: FC<SearchBarProps> = ({
                 <input
                     className={`ml-2 bg-opacity-0 bg-bg focus:outline-none border-text-contrastText border-r-2`}
                     {...props}
+                    autoFocus
                 ></input>
             ) : null}
             <div

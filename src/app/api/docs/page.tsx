@@ -14,7 +14,6 @@ const Docs: NextPage = async () => {
 
     return (
         <div>
-            {' '}
             <div>{`/api`}</div>
             <Explorer fileTree={fileTree} />{' '}
         </div>

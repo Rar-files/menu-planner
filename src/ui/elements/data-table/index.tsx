@@ -8,13 +8,13 @@ type Props = {
     items: any[]
     //** Columns to be displayed in the table. Example: [{name: "name", label: "Name", width: "w-12"}] */
     columns: IColumn[]
-    /** Url of more info about item page. Example: "/products"*/
+    /** Url of more info about item page. Example: "/meals/products"*/
     url?: string
 }
 
 export interface IColumn {
-    /** Name of the property in the items array. Example: "name"*/
-    name: string
+    /** Key of the property in the items array. Example: "name"*/
+    key: string
     /** Label of the column. Example: "Name"*/
     label: string
     /** Surfix of the data in cell. Example: "euro"*/
@@ -23,6 +23,13 @@ export interface IColumn {
     width?: string
 }
 
+/**
+ * DataTable component to display tabular data
+ *
+ * @param {Object[]} items - Array of objects to display in table
+ * @param {IColumn[]} columns - Columns configuration
+ * @param {string} [url] - Optional url for more info on row item
+ */
 const DataTable: FC<Props> = ({ items, columns, url }) => {
     return (
         <div className={`flex flex-col`}>
@@ -41,7 +48,7 @@ const DataTable: FC<Props> = ({ items, columns, url }) => {
                 >
                     {columns.map((column, index: number) => (
                         <Cell key={index} width={column.width}>
-                            {item[column.name]}
+                            {item[column.key]}
                             {column.surfix ? ` ${column.surfix}` : ''}
                         </Cell>
                     ))}

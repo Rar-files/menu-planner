@@ -1,27 +1,38 @@
-import { IIdRole } from '@/types/IIdRole'
+import { IAuthUser } from '@/types/users/IAuthUser'
+import { IUser } from '@/types/users/IUser'
 import { Role } from '@prisma/client'
 import { PrismaClient, Prisma } from '@prisma/client'
 
 const getRoleExtension = Prisma.defineExtension({
     name: 'getRole',
     model: {
-        idRole: {
-            async getRole(id: string) {
-                let idRole = await prisma.idRole.findUnique({
+        user: {
+            async auth(googleUser: IAuthUser) {
+                let user = await prisma.user.findUnique({
                     where: {
-                        id: id,
+                        id: googleUser.id,
                     },
                 })
 
-                if (!idRole)
-                    idRole = await prisma.idRole.create({
+                if (!user)
+                    user = await prisma.user.create({
                         data: {
-                            id: id,
-                            role: 'User',
+                            ...googleUser,
+                            role: 'consumer',
                         },
                     })
 
-                return (idRole as IIdRole).role as Role
+                if (user.image != googleUser.image)
+                    await prisma.user.update({
+                        where: {
+                            id: googleUser.id,
+                        },
+                        data: {
+                            image: googleUser.image,
+                        },
+                    })
+
+                return user as IUser
             },
         },
     },

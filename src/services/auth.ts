@@ -21,8 +21,8 @@ export const authOptions: NextAuthOptions = {
         async jwt({ token, user }) {
             /* Step 1: update the token based on the user object */
             if (user) {
-                const role = await prisma.idRole.getRole(user.id)
-                token = { ...user, role: role }
+                const authedUser = await prisma.user.auth(user)
+                token = { ...authedUser }
             }
 
             return token
@@ -31,9 +31,15 @@ export const authOptions: NextAuthOptions = {
         session({ session, token }) {
             /* Step 2: update the session.user based on the token object */
             if (token && session.user) {
-                session.user = { id: token.email, ...token }
+                session.user = { ...token }
             }
             return session
         },
+    },
+    theme: {
+        colorScheme: 'auto',
+        brandColor: '#4f46e5',
+        logo: '/favicon.ico',
+        buttonText: '#fff',
     },
 }
