@@ -78,6 +78,9 @@ jobs:
         run: |
           cd projects/${{ env.NAME }}
           sed -i "s|image: ghcr.io/rar-files/menu-planner:[a-f0-9]*|image: ghcr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}|" app-deployment.yaml
+          cat app-deployment.yaml
+          git status
+          git diff
       - name: Commit changes
         run: |
           git add .
