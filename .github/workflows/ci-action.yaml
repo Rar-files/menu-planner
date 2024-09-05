@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+env:
+  CD_REPO: Rar-files/cd-family-home
+  NAME: menu-planner
+
 jobs:
   build-and-push-docker-image:
     name: Build Docker image and push to registry
@@ -50,3 +54,29 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+  deploy:
+    name: "Deploy image on $CD_REPO"
+    runs-on: ubuntu-latest
+    needs:
+      - build-and-push-docker-image
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.CD_REPO }}
+          token: ${{ secrets.PACKAGES }}
+          ref: main
+      - name: Set up git config
+        run: |
+          git config --global user.name "Rar-files"
+          git config --global user.email "dwidlak@outlook.com"
+      - name: Change image tag
+        run: |
+          cd projects/${{ env.NAME }}
+          sed -i "s|image: ghcr.io/rar-files/menu-planner:[a-f0-9]*|image: ghcr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}|" app-deployment.yaml
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Update image tag for ${{ env.NAME }} to ${{ github.sha }}"
+          git push origin main
