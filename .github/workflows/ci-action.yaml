@@ -56,7 +56,7 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
 
   deploy:
-    name: "Deploy image on $CD_REPO"
+    name: Deploy image on ${{ env.CD_REPO }}
     runs-on: ubuntu-latest
     needs:
       - build-and-push-docker-image
@@ -71,6 +71,9 @@ jobs:
         run: |
           git config --global user.name "Rar-files"
           git config --global user.email "dwidlak@outlook.com"
+      - name: lowercase github.repository
+        run: |
+          echo "IMAGE_NAME=${GITHUB_REPOSITORY@L}" >> ${GITHUB_ENV}
       - name: Change image tag
         run: |
           cd projects/${{ env.NAME }}
