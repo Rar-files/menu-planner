@@ -10,7 +10,7 @@ const NormalMenu = () => {
                     {endpoint.name}
                 </Button>
             ))}
-            <div className={`h-10 m-1 p-px bg-primary`}></div>
+            <div className={`h-10 m-1 p-px bg-secondary`}></div>
             <User />
         </div>
     )
